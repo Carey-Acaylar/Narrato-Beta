@@ -1,28 +1,28 @@
 // screens/Signup.jsx
 import { useRouter } from "expo-router";
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 export default function Signup() {
     const router = useRouter()
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* App Title */}
+     
       <Text style={styles.appTitle}>Narrato</Text>
 
-      {/* Heading */}
+     
       <Text style={styles.heading}>Create an Account</Text>
       <Text style={styles.subHeading}>
         Sign up to start writing and sharing your novels.
       </Text>
 
-      {/* Input Fields */}
+      
       <View style={styles.form}>
         <TextInput
           placeholder="Full Name"
@@ -49,19 +49,18 @@ export default function Signup() {
         />
       </View>
 
-      {/* Sign Up Button */}
       <TouchableOpacity style={styles.signUpButton}>
         <Text style={styles.signUpButtonText}>Sign Up</Text>
       </TouchableOpacity>
 
-      {/* Divider */}
+      
       <View style={styles.dividerWrapper}>
         <View style={styles.dividerLine} />
         <Text style={styles.dividerText}>or</Text>
         <View style={styles.dividerLine} />
       </View>
 
-      {/* Social Signup Buttons */}
+     
       <TouchableOpacity style={styles.socialButton}>
         <Text style={styles.socialButtonText}>Continue with Google</Text>
       </TouchableOpacity>
@@ -70,7 +69,7 @@ export default function Signup() {
         <Text style={styles.socialButtonText}>Continue with Facebook</Text>
       </TouchableOpacity>
 
-      {/* Footer */}
+      
       <View style={styles.footer}>
         <Text style={styles.footerText}>Already have an account? </Text>
         <TouchableOpacity>
@@ -91,19 +90,19 @@ const styles = StyleSheet.create({
   appTitle: {
     fontSize: 32,
     fontWeight: "700",
-    color: "#4f46e5", // indigo-600
+    color: "#4f46e5", 
     textAlign: "center",
     marginBottom: 40,
   },
   heading: {
     fontSize: 22,
     fontWeight: "600",
-    color: "#1f2937", // gray-800
+    color: "#1f2937",
     marginBottom: 4,
   },
   subHeading: {
     fontSize: 15,
-    color: "#6b7280", // gray-500
+    color: "#6b7280",
     marginBottom: 28,
   },
   form: {
@@ -111,13 +110,13 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: "#d1d5db", // gray-300
+    borderColor: "#d1d5db",
     borderRadius: 16,
     paddingHorizontal: 16,
     paddingVertical: 12,
     fontSize: 16,
-    color: "#111827", // gray-900
-    backgroundColor: "#f9fafb", // subtle background
+    color: "#111827",
+    backgroundColor: "#f9fafb", 
   },
   signUpButton: {
     backgroundColor: "#4f46e5",
@@ -162,7 +161,7 @@ const styles = StyleSheet.create({
   },
   socialButtonText: {
     fontSize: 16,
-    color: "#374151", // gray-700
+    color: "#374151",
   },
   footer: {
     marginTop: 40,

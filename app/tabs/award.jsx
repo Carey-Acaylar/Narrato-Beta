@@ -1,6 +1,6 @@
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function Porn() {
+export default function Award() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.menu}>

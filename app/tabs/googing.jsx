@@ -1,14 +1,14 @@
-// app/(tabs)/googing.jsx
+
 import { Ionicons } from "@expo/vector-icons";
 import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-// Sample tags
+
 const tags = [
   "romance", "love", "billionaire", "texttospeech", "arrangedmarriage",
   "slowburn", "india", "indian", "lovestory", "enemiestolovers",
 ];
 
-// Sample stories
+
 const stories = [
   {
     id: "1",
@@ -83,13 +83,13 @@ export default function Googing() {
 
   return (
     <ScrollView style={styles.container}>
-      {/* Refine Tags */}
+     
       <Text style={styles.refineTitle}>Refine by tag:</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tagsRow}>
         {tags.map(renderTag)}
       </ScrollView>
 
-      {/* Stories */}
+      
       <Text style={styles.storyCount}>{stories.length} Stories</Text>
       <FlatList
         data={stories}

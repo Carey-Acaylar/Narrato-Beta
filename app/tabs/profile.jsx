@@ -1,35 +1,35 @@
-// app/(tabs)/profile.jsx
 import { useState } from "react";
 import {
-    FlatList,
-    Image,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { useStories } from "../context/StoriesContext";
 
 export default function Profile() {
-  const { stories, deleteStory } = useStories();
+  const { stories, deleteStory, updateStory } = useStories();
   const [editingId, setEditingId] = useState(null);
+  const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
 
   return (
     <View style={styles.container}>
-      {/* Profile Header */}
       <View style={styles.header}>
-        <Image 
-            source={{ uri: "https://i.imgur.com/qEf2vyo.jpg" }} 
-            style={{ width: 100, height: 100, borderRadius: 50 }} 
+        <Image
+          source={{ uri: "https://i.imgur.com/qEf2vyo.jpg" }}
+          style={{ width: 100, height: 100, borderRadius: 50 }}
         />
-        <Text style={styles.name}>John Writer</Text>
+        <Text style={styles.name}>Carey_Acaylar</Text>
         <Text style={styles.bio}>
           ✍️ Storyteller of fantasy and adventures. Sharing worlds one chapter
           at a time.
         </Text>
       </View>
 
-      {/* Stats */}
       <View style={styles.statsContainer}>
         <View style={styles.statBox}>
           <Text style={styles.statNumber}>{stories.length}</Text>
@@ -47,7 +47,6 @@ export default function Profile() {
         </View>
       </View>
 
-      {/* My Novels */}
       <Text style={styles.sectionTitle}>My Novels</Text>
       {stories.length === 0 ? (
         <Text style={styles.empty}>No stories published yet.</Text>
@@ -73,9 +72,14 @@ export default function Profile() {
                 {item.chapters || 1} Chapters
               </Text>
 
-              {/* Actions */}
               <View style={styles.actions}>
-                <TouchableOpacity onPress={() => setEditingId(item.id)}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setEditingId(item.id);
+                    setNewTitle(item.title);
+                    setNewDescription(item.description || "");
+                  }}
+                >
                   <Text style={styles.edit}>Edit</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => deleteStory(item.id)}>
@@ -86,14 +90,43 @@ export default function Profile() {
           )}
         />
       )}
+
+      {/* Edit Form */}
+      {editingId && (
+        <View style={styles.editForm}>
+          <Text style={styles.editFormTitle}>Edit Story</Text>
+          <TextInput
+            placeholder="Title"
+            value={newTitle}
+            onChangeText={setNewTitle}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Description"
+            value={newDescription}
+            onChangeText={setNewDescription}
+            style={[styles.input, { height: 80 }]}
+            multiline
+          />
+          <TouchableOpacity
+            onPress={() => {
+              updateStory(editingId, newTitle, newDescription);
+              setEditingId(null);
+              setNewTitle("");
+              setNewDescription("");
+            }}
+            style={styles.saveButton}
+          >
+            <Text style={styles.saveButtonText}>Save Changes</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f9fafb" },
-
-  // Header
   header: {
     alignItems: "center",
     paddingVertical: 30,
@@ -110,8 +143,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 6,
   },
-
-  // Stats
   statsContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -123,8 +154,6 @@ const styles = StyleSheet.create({
   statBox: { alignItems: "center" },
   statNumber: { fontSize: 18, fontWeight: "700", color: "#4f46e5" },
   statLabel: { fontSize: 14, color: "#6b7280", marginTop: 2 },
-
-  // Section
   sectionTitle: {
     fontSize: 18,
     fontWeight: "600",
@@ -138,8 +167,6 @@ const styles = StyleSheet.create({
     color: "#6b7280",
     paddingHorizontal: 16,
   },
-
-  // Novels
   novelCard: {
     width: 160,
     marginRight: 16,
@@ -167,8 +194,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     marginBottom: 4,
   },
-
-  // Actions
   actions: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -177,4 +202,42 @@ const styles = StyleSheet.create({
   },
   edit: { fontSize: 12, color: "#2563eb", fontWeight: "600" },
   delete: { fontSize: 12, color: "#dc2626", fontWeight: "600" },
+  editForm: {
+    backgroundColor: "#fff",
+    padding: 16,
+    margin: 16,
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  editFormTitle: {
+    fontSize: 16,
+    fontWeight: "700",
+    marginBottom: 12,
+    color: "#111827",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#d1d5db",
+    borderRadius: 6,
+    padding: 10,
+    marginBottom: 12,
+    fontSize: 14,
+    color: "#111827",
+    backgroundColor: "#f9fafb",
+  },
+  saveButton: {
+    backgroundColor: "#2563eb",
+    paddingVertical: 12,
+    borderRadius: 6,
+  },
+  saveButtonText: {
+    color: "#fff",
+    textAlign: "center",
+    fontWeight: "600",
+    fontSize: 14,
+  },
 });

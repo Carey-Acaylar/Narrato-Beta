@@ -1,4 +1,3 @@
-// screens/Login.jsx
 import { useRouter } from "expo-router";
 import {
   ScrollView,
@@ -13,16 +12,16 @@ export default function Login() {
   const router = useRouter()
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* App Title */}
+      
       <Text style={styles.appTitle}>Narrato</Text>
 
-      {/* Heading */}
+    
       <Text style={styles.heading}>Welcome Back</Text>
       <Text style={styles.subHeading}>
         Log in to continue writing and sharing your novels.
       </Text>
 
-      {/* Input Fields */}
+     
       <View style={styles.form}>
         <TextInput
           placeholder="Email"
@@ -38,24 +37,24 @@ export default function Login() {
         />
       </View>
 
-      {/* Login Button */}
+    
       <TouchableOpacity style={styles.loginButton}>
         <Text style={styles.loginButtonText} onPress={() => router.push('/tabs/home')}>Log In</Text>
       </TouchableOpacity>
 
-      {/* Forgot Password */}
+    
       <TouchableOpacity style={styles.forgotPassword}>
         <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
       </TouchableOpacity>
 
-      {/* Divider */}
+     
       <View style={styles.dividerWrapper}>
         <View style={styles.dividerLine} />
         <Text style={styles.dividerText}>or</Text>
         <View style={styles.dividerLine} />
       </View>
 
-      {/* Social Login Buttons */}
+     
       <TouchableOpacity style={styles.socialButton}>
         <Text style={styles.socialButtonText}>Continue with Google</Text>
       </TouchableOpacity>
@@ -64,7 +63,7 @@ export default function Login() {
         <Text style={styles.socialButtonText}>Continue with Facebook</Text>
       </TouchableOpacity>
 
-      {/* Footer */}
+     
       <View style={styles.footer}>
         <Text style={styles.footerText}>Don’t have an account? </Text>
         <TouchableOpacity>

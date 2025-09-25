@@ -1,5 +1,8 @@
 import { useRouter } from "expo-router";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,37 +12,41 @@ import {
 } from "react-native";
 
 export default function Login() {
-  const router = useRouter()
+  const router = useRouter();
+  const auth = getAuth();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert("Missing fields", "Please enter email and password.");
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push("/tabs/home"); // Redirect to home
+    } catch (error) {
+      Alert.alert("Login failed", error.message);
+    }
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      
       <Text style={styles.appTitle}>Narrato</Text>
-
-    
       <Text style={styles.heading}>Welcome Back</Text>
       <Text style={styles.subHeading}>
         Log in to continue writing and sharing your novels.
       </Text>
 
-     
       <View style={styles.form}>
-        <TextInput
-          placeholder="Email"
-          keyboardType="email-address"
-          style={styles.input}
-          placeholderTextColor="#9ca3af"
-        />
-        <TextInput
-          placeholder="Password"
-          secureTextEntry
-          style={styles.input}
-          placeholderTextColor="#9ca3af"
-        />
+        <TextInput placeholder="Email" keyboardType="email-address" style={styles.input} placeholderTextColor="#9ca3af" value={email} onChangeText={setEmail} />
+        <TextInput placeholder="Password" secureTextEntry style={styles.input} placeholderTextColor="#9ca3af" value={password} onChangeText={setPassword} />
       </View>
 
-    
-      <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginButtonText} onPress={() => router.push('/tabs/home')}>Log In</Text>
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <Text style={styles.loginButtonText}>Log In</Text>
       </TouchableOpacity>
 
     

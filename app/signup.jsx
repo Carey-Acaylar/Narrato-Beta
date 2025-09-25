@@ -1,6 +1,8 @@
-// screens/Signup.jsx
 import { useRouter } from "expo-router";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { useState } from "react";
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -11,51 +13,45 @@ import {
 
 export default function Signup() {
   const router = useRouter();
+  const auth = getAuth();
 
-  const handleSignUp = () => {
-    // Simulate a sign-up process (e.g., validation, API call)
-    // After successful sign-up, navigate to login screen
-    // Example:
-    // If sign-up is successful, navigate to login page
-    router.push('/');  // Redirect to login screen
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+
+  const handleSignUp = async () => {
+    if (!email || !password || !confirm) {
+      Alert.alert("Missing fields", "Please fill in all fields.");
+      return;
+    }
+    if (password !== confirm) {
+      Alert.alert("Password mismatch", "Passwords do not match.");
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      Alert.alert("Success", "Account created!");
+      router.push("/"); // Redirect to login
+    } catch (error) {
+      Alert.alert("Signup failed", error.message);
+    }
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.appTitle}>Narrato</Text>
-
       <Text style={styles.heading}>Create an Account</Text>
       <Text style={styles.subHeading}>
         Sign up to start writing and sharing your novels.
       </Text>
 
       <View style={styles.form}>
-        <TextInput
-          placeholder="Full Name"
-          style={styles.input}
-          placeholderTextColor="#9ca3af"
-        />
-        <TextInput
-          placeholder="Email"
-          keyboardType="email-address"
-          style={styles.input}
-          placeholderTextColor="#9ca3af"
-        />
-        <TextInput
-          placeholder="Password"
-          secureTextEntry
-          style={styles.input}
-          placeholderTextColor="#9ca3af"
-        />
-        <TextInput
-          placeholder="Confirm Password"
-          secureTextEntry
-          style={styles.input}
-          placeholderTextColor="#9ca3af"
-        />
+        <TextInput placeholder="Email" keyboardType="email-address" style={styles.input} placeholderTextColor="#9ca3af" value={email} onChangeText={setEmail} />
+        <TextInput placeholder="Password" secureTextEntry style={styles.input} placeholderTextColor="#9ca3af" value={password} onChangeText={setPassword} />
+        <TextInput placeholder="Confirm Password" secureTextEntry style={styles.input} placeholderTextColor="#9ca3af" value={confirm} onChangeText={setConfirm} />
       </View>
 
-      {/* Update onPress handler to call handleSignUp */}
       <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
         <Text style={styles.signUpButtonText}>Sign Up</Text>
       </TouchableOpacity>

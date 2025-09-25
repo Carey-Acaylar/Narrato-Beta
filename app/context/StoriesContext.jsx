@@ -38,16 +38,23 @@ export function StoriesProvider({ children }) {
   );
 }
 
-  // 🔹 CREATE
-  const addStory = async (title, description) => {
-    const newStory = {
-      title,
-      description,
-      createdAt: new Date(),
-    };
-    const docRef = await addDoc(collection(db, "stories"), newStory);
-    setStories([{ id: docRef.id, ...newStory }, ...stories]);
+ const sanitize = (value, fallback = "") =>
+  typeof value === "string" ? value.trim() || fallback : fallback;
+
+const addStory = async (storyData) => {
+  const safeStory = {
+    title: sanitize(storyData.title, "Untitled"),
+    description: sanitize(storyData.description, "No description provided"),
+    category: sanitize(storyData.category, "uncategorized"),
+    cover: typeof storyData.cover === "string" ? storyData.cover : null,
+    characters: Array.isArray(storyData.characters)
+      ? storyData.characters.filter((c) => typeof c === "string" && c.trim())
+      : [],
   };
+
+  await addDoc(collection(db, "stories"), safeStory);
+};
+
 
   // 🔹 UPDATE
   const updateStory = async (id, updatedTitle, updatedDescription) => {

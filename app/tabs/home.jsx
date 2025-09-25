@@ -1,12 +1,12 @@
 // app/(tabs)/home.jsx
 import {
-    FlatList,
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { useStories } from "../context/StoriesContext";
 

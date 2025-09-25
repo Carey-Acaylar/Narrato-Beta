@@ -10,19 +10,25 @@ import {
 } from "react-native";
 
 export default function Signup() {
-    const router = useRouter()
+  const router = useRouter();
+
+  const handleSignUp = () => {
+    // Simulate a sign-up process (e.g., validation, API call)
+    // After successful sign-up, navigate to login screen
+    // Example:
+    // If sign-up is successful, navigate to login page
+    router.push('/');  // Redirect to login screen
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-     
       <Text style={styles.appTitle}>Narrato</Text>
 
-     
       <Text style={styles.heading}>Create an Account</Text>
       <Text style={styles.subHeading}>
         Sign up to start writing and sharing your novels.
       </Text>
 
-      
       <View style={styles.form}>
         <TextInput
           placeholder="Full Name"
@@ -49,18 +55,17 @@ export default function Signup() {
         />
       </View>
 
-      <TouchableOpacity style={styles.signUpButton}>
+      {/* Update onPress handler to call handleSignUp */}
+      <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
         <Text style={styles.signUpButtonText}>Sign Up</Text>
       </TouchableOpacity>
 
-      
       <View style={styles.dividerWrapper}>
         <View style={styles.dividerLine} />
         <Text style={styles.dividerText}>or</Text>
         <View style={styles.dividerLine} />
       </View>
 
-     
       <TouchableOpacity style={styles.socialButton}>
         <Text style={styles.socialButtonText}>Continue with Google</Text>
       </TouchableOpacity>
@@ -69,7 +74,6 @@ export default function Signup() {
         <Text style={styles.socialButtonText}>Continue with Facebook</Text>
       </TouchableOpacity>
 
-      
       <View style={styles.footer}>
         <Text style={styles.footerText}>Already have an account? </Text>
         <TouchableOpacity>
